@@ -1,0 +1,11 @@
+FROM nginx
+RUN apt-get update && apt-get install -y unzip
+COPY templatemo_591_villa_agency.zip /usr/share/nginx/html/   #Use this COPY command only if the zip file is present in your host machine current working directory.
+WORKDIR /usr/share/nginx/html/
+RUN unzip templatemo_591_villa_agency.zip
+RUN mv templatemo_591_villa_agency/* .
+RUN rm -rf templatemo_591_villa_agency
+
+# docker build -t nginxapp:v1 -f web_hosted_nginx_Dockerfile . :- #Create image from the above Dockerfile
+# docker run -itd --name nginxwebapp -p 8081:80 nginxapp:v1 :- Create container from the image. Port map it with desired port here it is 8081. Open that port in security group for all.
+# On your web browser hit :- <publice_ip>:8081
