@@ -1,0 +1,15 @@
+FROM ubuntu
+RUN apt-get update && apt-get install -y apache2 unzip
+COPY templatemo_591_villa_agency.zip /var/www/html/
+WORKDIR /var/www/html/
+RUN unzip templatemo_591_villa_agency.zip
+RUN mv templatemo_591_villa_agency/* .
+RUN rm -rf templatemo_591_villa_agency
+EXPOSE 80
+CMD ["apachectl", "-D", "FOREGROUND"]
+
+
+
+# docker build -t apacheapp:v1 -f web_hosted_apache_Dockerfile . :- Create image from the above Dockerfile
+# docker run -itd --name apachewebapp -p 8082:80 apacheapp:v1  :- Create container from the image. Port map it with the desired port, here it is 8081. Open that port in the security group for all.
+# On your web browser hit :- <publice_ip>:8081
